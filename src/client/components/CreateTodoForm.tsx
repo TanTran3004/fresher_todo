@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import { api } from '@/utils/client/api'
-
 /**
  * QUESTION 1:
  * -----------
@@ -35,6 +34,16 @@ export const CreateTodoForm = () => {
       },
     })
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      createTodo({
+        body: todoBody,
+      })
+      setTodoBody('')
+    }
+  }
+
   return (
     <form className="group flex items-center justify-between rounded-12 border border-gray-200 py-2 pr-4 focus-within:border-gray-400">
       <label htmlFor={TODO_INPUT_ID} className="sr-only">
@@ -49,10 +58,12 @@ export const CreateTodoForm = () => {
         onChange={(e) => {
           setTodoBody(e.target.value)
         }}
+        onKeyDown={handleKeyDown}
         className="flex-1 px-4 text-base placeholder:text-gray-400 focus:outline-none"
       />
 
       <button
+        className="border-green-500 hover:border-green-600 rounded-full border bg-gray-800 px-5 py-2 text-white"
         type="button"
         disabled={isCreatingTodo}
         onClick={() => {

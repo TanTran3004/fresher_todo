@@ -1,5 +1,8 @@
+import React, { useState } from 'react'
+
 import { CreateTodoForm } from '@/client/components/CreateTodoForm'
 import { TodoList } from '@/client/components/TodoList'
+import { TodoFilter } from '@/client/components/TodoFilter'
 
 /**
  * QUESTION 6:
@@ -17,6 +20,7 @@ import { TodoList } from '@/client/components/TodoList'
  */
 
 const Index = () => {
+  const [selectedTab, setSelectedTab] = useState('all')
   return (
     <main className="mx-auto w-[480px] pt-12">
       <div className="rounded-12 bg-white p-8 shadow-sm">
@@ -24,8 +28,12 @@ const Index = () => {
           Todo App
         </h1>
 
+        <div className="pt-11">
+          <TodoFilter selectedTab={selectedTab} onTabChange={setSelectedTab} />
+        </div>
+
         <div className="pt-10">
-          <TodoList />
+          <TodoList selectedTab={selectedTab} />
         </div>
 
         <div className="pt-10">
